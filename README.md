@@ -25,8 +25,8 @@ This project implements a hybrid recommender system using [LightFM](https://maki
     ├── metadata_dataset.csv
     ├── reviews_dataset.csv
 ├── models/                  # Saved model and dataset
-├── [requirements.txt](http://_vscodecontentref_/2)         # Python dependencies
-└── [README.md](http://_vscodecontentref_/3)
+├── requirements.txt         # Python dependencies
+└── README.md
 ```
 
 ## Getting Started
