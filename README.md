@@ -11,7 +11,7 @@ This project implements a hybrid recommender system using [LightFM](https://maki
 
 ## Project Structure
 ```
-├── [main.py](http://_vscodecontentref_/1)                  # Training pipeline script
+├── main.py  # Training pipeline script
 ├── app/                     # Streamlit web app
 │   ├── Home.py
 │   └── pages/
@@ -22,6 +22,8 @@ This project implements a hybrid recommender system using [LightFM](https://maki
 │   ├── recommend.py
 │   └── train_model.py
 ├── data/                    # Datasets (CSV files)
+    ├── metadata_dataset.csv
+    ├── reviews_dataset.csv
 ├── models/                  # Saved model and dataset
 ├── [requirements.txt](http://_vscodecontentref_/2)         # Python dependencies
 └── [README.md](http://_vscodecontentref_/3)
@@ -34,19 +36,8 @@ This project implements a hybrid recommender system using [LightFM](https://maki
 Create a virtual environment and install requirements:
 
 ```sh
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-pip install -r [requirements.txt](http://_vscodecontentref_/5)
+git clone https://github.com/DurojaiyeAbisoye/hybrid_recommender_system.git
+cd hybrid_recommender_system
+pip install -r requirements.txt
+ streamlit run app/Home.py
 ```
-2. Prepare Data
-Place your data files in the data/ directory:
-
-reviews_dataset.csv: User reviews and ratings.
-metadata_dataset.csv: Product metadata.
-3. Train the Model
-Run the training pipeline:
-
-python [main.py](http://_vscodecontentref_/6)
-
-4. Launch the Web App
-Start the Streamlit app:
