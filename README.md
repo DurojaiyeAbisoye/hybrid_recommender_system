@@ -1,5 +1,7 @@
 # Hybrid Recommender System
 
+![Streamlit](https://streamlit.io/images/brand/streamlit-mark-color.png)
+
 This project implements a hybrid recommender system using [LightFM](https://making.lyst.com/lightfm/docs/home.html), combining collaborative and content-based filtering for personalized product recommendations. The system is designed to train on user reviews and product metadata, and provides an interactive web interface for exploring recommendations.
 
 ## Features
@@ -29,12 +31,7 @@ This project implements a hybrid recommender system using [LightFM](https://maki
 └── README.md
 ```
 
-## Getting Started
-
-### 1. Install Dependencies
-
-Create a virtual environment and install requirements:
-
+## 🛠️ How to Run Locally
 ```sh
 git clone https://github.com/DurojaiyeAbisoye/hybrid_recommender_system.git
 cd hybrid_recommender_system
