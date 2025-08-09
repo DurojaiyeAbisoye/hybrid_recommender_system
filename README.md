@@ -50,3 +50,8 @@ python [main.py](http://_vscodecontentref_/6)
 
 4. Launch the Web App
 Start the Streamlit app:
+
+To run the fastapi server:
+```
+uvicorn serve:app --reload
+```
