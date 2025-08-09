@@ -36,6 +36,37 @@ async def lifespan(app: FastAPI):
 app = FastAPI(lifespan=lifespan)
 
 
+@app.get("/")
+def read_root():
+    return {"message": "Welcome to the Recommender System API"}
+
+
+@app.get("/health")
+def health_check():
+    return {"status": "healthy"}
+
+
+@app.get("/user_ids")
+def get_user_ids():
+    _, _, ratings_df, _ = app.state.reviews, app.state.metadata, app.state.ratings, app.state.users
+    user_ids = ratings_df['user_id'].unique().tolist()
+    return {"user_ids": user_ids}
+
+
+@app.get("/item_ids")
+def get_item_ids():
+    _, items_df, _, _ = app.state.reviews, app.state.metadata, app.state.ratings, app.state.users
+    item_ids = items_df['parent_asin'].unique().tolist()
+    return {"item_ids": item_ids}
+
+
+@app.get('/user_purchase_history/{user_id}')
+def get_user_purchase_history(user_id: str):
+    reviews_df, _, _, _ = app.state.reviews, app.state.metadata, app.state.ratings, app.state.users
+    user_history = reviews_df[reviews_df['user_id'] == user_id]
+    return user_history.to_dict(orient='records')
+
+
 @app.get("/old_user_recommendations")
 def get_old_user_recommendations(user_id: str, k: int = 10):
     model = app.state.model
