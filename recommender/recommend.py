@@ -11,7 +11,7 @@ def recommend_top_k_items_with_details(
     ratings_df,
     k=10
 ):
-    user_index = dataset.mapping()[0][user_id]
+    user_index = dataset.mapping()[0][user_id] if user_id in dataset.mapping()[0] else 0
     item_id_to_index = dataset.mapping()[2]
     index_to_item_id = {v: k for k, v in item_id_to_index.items()}
 

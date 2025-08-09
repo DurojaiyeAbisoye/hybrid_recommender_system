@@ -16,6 +16,7 @@ jsonschema==4.25.0
 jsonschema-specifications==2025.4.1
 lightfm @ file:///home/conda/feedstock_root/build_artifacts/lightfm_1679649519722/work
 MarkupSafe==3.0.2
+fastapi== 0.116.1
 narwhals==1.48.1
 numpy==2.3.2
 packaging==25.0
