@@ -1,3 +1,4 @@
+wheel==0.45.1
 altair==5.5.0
 annotated-types==0.7.0
 anyio==4.10.0
@@ -55,4 +56,3 @@ tzdata==2025.2
 urllib3==2.5.0
 uvicorn==0.35.0
 watchdog==6.0.0
-wheel==0.45.1
