@@ -28,10 +28,12 @@ def recommend_top_k_items_with_details(
 
     top_indices = np.argsort(-scores)[:k]
     data = []
-    for i in top_indices:
-        item_id = index_to_item_id[i]
-        title = all_items_df.loc[all_items_df['parent_asin'] == item_id, 'title'].values
-        title = title[0] if len(title) else "Unknown Title"
-        data.append({'item_id': item_id, 'title': title, 'score': scores[i]})
-
+    for i in top_indices: 
+        item_id = index_to_item_id[i] 
+        title = all_items_df.loc[all_items_df['parent_asin'] == item_id, 'title'].values 
+        image_url = eval(all_items_df.loc[all_items_df['parent_asin'] == item_id, 'images'].values.tolist()[0])[0].get('large') 
+        title = title[0] if len(title) else "Unknown Title" 
+     
+        data.append({'item_id': item_id, 'title': title, 'score': scores[i], 'image_url': image_url}) 
+ 
     return pd.DataFrame(data).sort_values(by='score', ascending=False).reset_index(drop=True)

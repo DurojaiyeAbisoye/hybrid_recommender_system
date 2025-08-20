@@ -105,3 +105,13 @@ def get_new_user_recommendations(user_id: int = 0, k: int = 10):
         k=k
     )
     return rec_df.to_dict(orient='records')
+
+
+@app.post("/purchases_by_id")
+def user_purchase(user_id: str, item_id: str):
+    return {
+        "user_id": user_id,
+        "item_id": item_id,
+        "verified_purchase": 1,
+    }
+
