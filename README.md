@@ -38,3 +38,22 @@ cd hybrid_recommender_system
 pip install -r requirements.txt
  streamlit run app/Home.py
 ```
+fastapi_implementation
+2. Prepare Data
+Place your data files in the data/ directory:
+
+reviews_dataset.csv: User reviews and ratings.
+metadata_dataset.csv: Product metadata.
+3. Train the Model
+Run the training pipeline:
+
+python [main.py]
+
+4. Launch the Web App
+Start the Streamlit app:
+
+To run the fastapi server:
+```
+uvicorn serve:app --reload
+```
+
