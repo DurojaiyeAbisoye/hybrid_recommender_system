@@ -19,7 +19,13 @@ def load_model_artifacts():
         model = pickle.load(f)
     with open("models/dataset.pkl", "rb") as f:
         dataset = pickle.load(f)
-    return model, dataset
+    with open("models/user_features.pkl", "rb") as f:
+        user_features = pickle.load(f)
+    with open("models/item_features.pkl", "rb") as f:
+        item_features = pickle.load(f)
+    return model, dataset, user_features, item_features
+    
+
 
 
 def load_and_preprocess_data():
@@ -29,7 +35,7 @@ def load_and_preprocess_data():
 
 
 async def lifespan(app: FastAPI):
-    app.state.model, app.state.dataset = load_model_artifacts()
+    app.state.model, app.state.dataset, app.state.user_features, app.state.item_features = load_model_artifacts()
     app.state.reviews, app.state.metadata, app.state.ratings, app.state.users = load_and_preprocess_data() 
     yield
 
@@ -109,7 +115,38 @@ def get_new_user_recommendations(user_id: int = 0, k: int = 10):
 
 @app.post("/purchases_by_id")
 def user_purchase(user_id: str, item_id: str):
+    dataset = app.state.dataset
+    model = app.state.model
+    user_features = app.state.user_features
+    item_features = app.state.item_features
+
+    new_interactions, new_weights = dataset.build_interactions([(user_id, item_id, 1)])
+    model.fit_partial(
+        new_interactions,
+        sample_weight=new_weights,
+        user_features=user_features,
+        item_features=item_features,
+        epochs=30,
+        num_threads=1
+    )
+
+    #save purchase to the dataset
+    new_purchase = pd.DataFrame({
+        'user_id': [user_id],
+        'item_id': [item_id],
+        'rating': [5],  # Assuming a positive rating for the purchase
+        'helpful_vote': [1],  # Assuming a helpful vote
+    })
+
+    app.state.ratings = pd.concat([app.state.ratings, new_purchase], ignore_index=True)
+    app.state.users = pd.concat(
+        [app.state.users, pd.DataFrame({'user_id': [user_id], 'verified_purchase': [1]})],
+        ignore_index=True
+    )
+
     return {
+        'status' : 'updated',
+        "message": "User purchase recorded successfully",
         "user_id": user_id,
         "item_id": item_id,
         "verified_purchase": 1,

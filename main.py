@@ -9,7 +9,7 @@ from recommender.preprocessing import (
 )
 from recommender.train_model import (
     build_dataset, build_features, build_interactions,
-    clean_duplicates, train_model, save_model
+    clean_duplicates, train_model, save_model, save_features
 )
 from lightfm.cross_validation import random_train_test_split
 
@@ -38,6 +38,10 @@ def main():
     dataset = build_dataset(users, items, user_features_col, item_features_col)
     user_features, item_features = build_features(dataset, users, user_feats, items, item_feats)
 
+    # Save features
+    logging.info("💾 Saving user and item features...")
+    os.makedirs("models", exist_ok=True)
+    save_features(user_features, item_features, path="models")
     # Build interactions
     logging.info("🔗 Creating interaction and weight matrices...")
     interactions, weights = build_interactions(dataset, ratings)

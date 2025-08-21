@@ -41,3 +41,9 @@ def save_model(model, dataset, path='models/'):
         pickle.dump(model, f)
     with open(f'{path}/dataset.pkl', 'wb') as f:
         pickle.dump(dataset, f)
+
+def save_features(user_features, item_features, path='models/'):
+    with open(f'{path}/user_features.pkl', 'wb') as f:
+        pickle.dump(user_features, f)
+    with open(f'{path}/item_features.pkl', 'wb') as f:
+        pickle.dump(item_features, f)
